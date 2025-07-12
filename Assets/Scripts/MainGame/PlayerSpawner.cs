@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class PlayerSpawner : MonoBehaviour
 {
 
@@ -20,7 +21,9 @@ public class PlayerSpawner : MonoBehaviour
     void SpawnPlayer()
     {
         numLives--;
+
         respawnTimer = 1;
+
         playerInstance = (GameObject)Instantiate(playerPreFab, transform.position, Quaternion.identity);
 
 
@@ -42,8 +45,8 @@ public class PlayerSpawner : MonoBehaviour
         }
 
         if (livesText != null)
-    
-    {
+
+        {
 
             if (numLives > 0 || playerInstance != null)
 
@@ -52,17 +55,14 @@ public class PlayerSpawner : MonoBehaviour
                 livesText.text = "Lives: " + numLives;
 
             }
-
-            else
-
+        }
+    
+            if (numLives <= 0 && playerInstance == null)
             {
-                
-                livesText.text = "Game Over, You Blew Up!!!";
-                
+
+                SceneManager.LoadScene("GameOver");
+
             }
         }
-    }
-
-    
     
 }
